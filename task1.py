@@ -15,6 +15,16 @@ def save_dictionary(dictionary):
     with open('dictionary.json', 'w') as file:
         json.dump(dictionary, file, indent=2)
 
+def translate_word(word, dictionary):
+    if word in dictionary:
+        translation = dictionary[word]
+        print(f"Translation: {translation}")
+    else:
+        translator = Translator(to_lang="de")
+        translation = translator.translate(word)
+        print(f"Translation: {translation}")
+        return translation
+    
 def main():
     dictionary = {}     
 
@@ -31,30 +41,17 @@ def main():
         if choice == '1':
 
             word_to_translate = input("Enter the word to translate: ")
-            
-            # translation = dictionary.get(word_to_translate, None)
-
-            if word_to_translate in dictionary:
-                translation=dictionary[word_to_translate]
-                print(f"Translation: {translation}")
-            else:
-                translator = Translator(to_lang="de")
-                translation = translator.translate(word_to_translate)
-                print(f"Translation: {translation}")
+            translate_word(word_to_translate, dictionary)
 
         elif choice == '2':
+            
             new_word = input("Enter the new word: ")
+            translation = translate_word(new_word, dictionary)
 
-            if new_word in dictionary:
-                print(f"{new_word} already exists in the dictionary. The existing translation is: {dictionary[new_word]}")
-            else:
-                translator = Translator(to_lang="de")
-                new_translation = translator.translate(new_word)
-
-                dictionary[new_word] = new_translation
+            if new_word not in dictionary:
+                dictionary[new_word] = translation
                 save_dictionary(dictionary)
-
-                print(f"Translation added: {new_word} -> {new_translation}")
+                print(f"Translation added: {new_word} -> {translation}")
 
         elif choice == '3':
              
