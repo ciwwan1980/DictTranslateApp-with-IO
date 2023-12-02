@@ -1,3 +1,4 @@
+
 from translate import Translator
 import json
 
@@ -10,7 +11,7 @@ def load_dictionary():
         return {}
 
 def main():
-    dictionary = {} 
+    dictionary = {}     
 
     while True: 
         print("1.Translate word")
@@ -26,13 +27,14 @@ def main():
 
             word_to_translate = input("Enter the word to translate: ")
             
-            translation = dictionary.get(word_to_translate, None)
+            # translation = dictionary.get(word_to_translate, None)
 
-            if translation is None:
-                translator = Translator(to_lang="de")
-                translation = translator.translate(word_to_translate)
+            if word_to_translate in dictionary:
+                translation=dictionary[word_to_translate]
                 print(f"Translation: {translation}")
             else:
+                translator = Translator(to_lang="de")
+                translation = translator.translate(word_to_translate)
                 print(f"Translation: {translation}")
 
         elif choice == '2':
