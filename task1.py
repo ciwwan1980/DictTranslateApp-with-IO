@@ -11,7 +11,6 @@ import json
 #         return {}
     
 
-
 def save_dictionary(dictionary):
     with open('dictionary.json', 'w') as file:
         json.dump(dictionary, file, indent=2)
@@ -44,8 +43,6 @@ def main():
                 print(f"Translation: {translation}")
 
         elif choice == '2':
-
-            
             new_word = input("Enter the new word: ")
 
             if new_word in dictionary:
@@ -57,9 +54,16 @@ def main():
                 dictionary[new_word] = new_translation
                 save_dictionary(dictionary)
 
+                print(f"Translation added: {new_word} -> {new_translation}")
 
         elif choice == '3':
-             pass
+             
+            print("List all translations in dictionary:")
+            if not dictionary:
+                print("Dictionary is empty.")
+            else:
+                for word, translation in dictionary.items():
+                    print(f"{word} -> {translation}")
         elif choice == '4':
              pass
         elif choice == '5':
