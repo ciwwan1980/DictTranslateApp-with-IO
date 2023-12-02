@@ -2,13 +2,18 @@
 from translate import Translator
 import json
 
-def load_dictionary():
-    try:
-        with open('dictionary.json', 'r') as file:
-            dictionary = json.load(file)
-        return dictionary
-    except FileNotFoundError:
-        return {}
+# def load_dictionary():
+#     try:
+#         with open('dictionary.json', 'r') as file:
+#             dictionary = json.load(file)
+#         return dictionary
+#     except FileNotFoundError:
+#         return {}
+    
+
+def save_dictionary(dictionary):
+    with open('dictionary.json', 'w') as file:
+        json.dump(dictionary, file, indent=2)
 
 def main():
     dictionary = {}     
@@ -21,7 +26,7 @@ def main():
         print("4. Exit")
 
 
-        choice=input("Enter your choices (1/2/3/4/5) ")
+        choice=input("Enter your choices (1/2/3/4/5): ")
 
         if choice == '1':
 
@@ -38,7 +43,15 @@ def main():
                 print(f"Translation: {translation}")
 
         elif choice == '2':
-             pass
+            
+            new_word = input("Enter the new word: ")
+            translator = Translator(to_lang="de")
+            new_translation = translator.translate(new_word)
+
+            dictionary[new_word] = new_translation
+            save_dictionary(dictionary)
+
+
         elif choice == '3':
              pass
         elif choice == '4':
