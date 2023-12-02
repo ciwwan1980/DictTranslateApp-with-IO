@@ -11,6 +11,7 @@ import json
 #         return {}
     
 
+
 def save_dictionary(dictionary):
     with open('dictionary.json', 'w') as file:
         json.dump(dictionary, file, indent=2)
@@ -43,13 +44,18 @@ def main():
                 print(f"Translation: {translation}")
 
         elif choice == '2':
+
             
             new_word = input("Enter the new word: ")
-            translator = Translator(to_lang="de")
-            new_translation = translator.translate(new_word)
 
-            dictionary[new_word] = new_translation
-            save_dictionary(dictionary)
+            if new_word in dictionary:
+                print(f"{new_word} already exists in the dictionary. The existing translation is: {dictionary[new_word]}")
+            else:
+                translator = Translator(to_lang="de")
+                new_translation = translator.translate(new_word)
+
+                dictionary[new_word] = new_translation
+                save_dictionary(dictionary)
 
 
         elif choice == '3':
