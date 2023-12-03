@@ -16,6 +16,7 @@ def save_dictionary(dictionary):
     with open('dictionary.json', 'w') as file:
         json.dump(dictionary, file, indent=2)
 
+
 def translate_word(word, dictionary):
     if word in dictionary:
         translation = dictionary[word]
@@ -25,6 +26,7 @@ def translate_word(word, dictionary):
         translation = translator.translate(word)
         print(f"Translation: {translation}")
         return translation
+    
 def remove_translation(word, dictionary):
     if word in dictionary:
         del dictionary[word]
@@ -32,6 +34,19 @@ def remove_translation(word, dictionary):
         save_dictionary(dictionary)
     else:
         print(f"Word {word} not found in the dictionary.")
+
+
+def update_translation(word, dictionary):
+    if word in dictionary:
+        old_translation = dictionary[word]
+        new_translation = input(f"Enter the new translation for '{word}' (current translation: {old_translation}): ")
+        dictionary[word] = new_translation
+        save_dictionary(dictionary)
+        print(f"Translation updated successfully: {word} -> {new_translation}")
+    else:
+        print(f"Word '{word}' not found in the dictionary.")
+
+
 def main():
     dictionary = load_dictionary()     
 
@@ -40,7 +55,8 @@ def main():
         print("2. Add translation")
         print("3.List of all translation")
         print("4. remove translation")
-        print("4. Exit")
+        print("5. Update translation")
+        print("6. Exit")
 
 
         choice=input("Enter your choices (1/2/3/4/5): ")
@@ -71,12 +87,17 @@ def main():
         elif choice == '4':
             word_to_remove = input("Enter the word to remove: ")
             remove_translation(word_to_remove, dictionary)
-            
+
         elif choice == '5':
+            word_to_update = input("Enter the word to update: ")
+            update_translation(word_to_update, dictionary)
+
+        elif choice == '6':
             print("Exiting program.")
             break
+
         else:
-            print("Invalid choice. Please enter 1, 2, 3, 4, or 5.")
+            print("Invalid choice. Please enter 1, 2, 3, 4, 5, or 6.")
 
 if __name__ == "__main__":
     main()
