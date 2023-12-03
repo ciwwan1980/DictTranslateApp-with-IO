@@ -1,14 +1,15 @@
 
 from translate import Translator
 import json
+import io
 
-# def load_dictionary():
-#     try:
-#         with open('dictionary.json', 'r') as file:
-#             dictionary = json.load(file)
-#         return dictionary
-#     except FileNotFoundError:
-#         return {}
+def load_dictionary():
+    try:
+        with open('dictionary.json', 'r') as file:
+            dictionary = json.load(file)
+        return dictionary
+    except FileNotFoundError:
+        return {}
     
 
 def save_dictionary(dictionary):
@@ -26,7 +27,7 @@ def translate_word(word, dictionary):
         return translation
     
 def main():
-    dictionary = {}     
+    dictionary = load_dictionary()     
 
     while True: 
         print("1.Translate word")
@@ -44,7 +45,7 @@ def main():
             translate_word(word_to_translate, dictionary)
 
         elif choice == '2':
-            
+
             new_word = input("Enter the new word: ")
             translation = translate_word(new_word, dictionary)
 
