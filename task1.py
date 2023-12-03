@@ -25,7 +25,13 @@ def translate_word(word, dictionary):
         translation = translator.translate(word)
         print(f"Translation: {translation}")
         return translation
-    
+def remove_translation(word, dictionary):
+    if word in dictionary:
+        del dictionary[word]
+        print(f"Translation for {word} removed successfully.")
+        save_dictionary(dictionary)
+    else:
+        print(f"Word {word} not found in the dictionary.")
 def main():
     dictionary = load_dictionary()     
 
@@ -63,7 +69,9 @@ def main():
                 for word, translation in dictionary.items():
                     print(f"{word} -> {translation}")
         elif choice == '4':
-             pass
+            word_to_remove = input("Enter the word to remove: ")
+            remove_translation(word_to_remove, dictionary)
+            
         elif choice == '5':
             print("Exiting program.")
             break
